@@ -3,6 +3,7 @@
     "Already registered?": "¿Ya tienes una cuenta?",
     "Confirm Password": "Confirmar contraseña",
     "Create account": "Crear una cuenta",
+    "Create vacancy": "Crear vacante",
     "Current Password": "Contraseña actual",
     "Delete Account": "Borrar cuenta",
     "Email Password Reset Link": "Enviar enlace al correo",
@@ -14,6 +15,7 @@
     "If you're having trouble clicking the buttonIf you're having trouble clicking the button copy and paste the URL below. into your web browser": "Si tiene problemas para hacer clic en el botón, copie y pegue la siguiente URL. en su navegador web",
     "Log in" : "Iniciar sesion",
     "Log Out": "Cerrar sesión",
+    "My vacancies": "Mis vacantes",
     "Name": "Nombre",
     "New Password": "Nueva contraseña",
     "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.": "Una vez que se elimine su cuenta, todos sus recursos y datos se eliminarán de forma permanente. Antes de eliminar su cuenta, descargue cualquier dato o información que desee conservar.",
@@ -32,6 +34,5 @@
     "Vacancies": "Vacantes",
     "Verify Email Address": "Confirme su dirección de correo",
     "Verify now": "Confirmar Cuenta",
-    "Your email address is unverified.": "Su dirección de correo electrónico no está verificada.",
-    "My vacancies": "Mis vacantes"
+    "Your email address is unverified.": "Su dirección de correo electrónico no está verificada."
 }
