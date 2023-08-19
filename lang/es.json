@@ -11,6 +11,7 @@
     "Forgot your password?": "¿Olvidaste tu contraseña?",
     "Hello": "Hola",
     "If you did not create an account, no further action is required.": "Si no creaste esta cuenta, puedes ignorar este mensaje",
+    "If you're having trouble clicking the buttonIf you're having trouble clicking the button copy and paste the URL below. into your web browser": "Si tiene problemas para hacer clic en el botón, copie y pegue la siguiente URL. en su navegador web",
     "Log in" : "Iniciar sesion",
     "Log Out": "Cerrar sesión",
     "Name": "Nombre",
@@ -30,6 +31,5 @@
     "Update your account's profile information and email address.": "Actualice la información de perfil y la dirección de correo electrónico de su cuenta.",
     "Verify Email Address": "Confirme su dirección de correo",
     "Verify now": "Confirmar Cuenta",
-    "Your email address is unverified.": "Su dirección de correo electrónico no está verificada.",
-    "If you're having trouble clicking the buttonIf you're having trouble clicking the button copy and paste the URL below. into your web browser": "Si tiene problemas para hacer clic en el botón, copie y pegue la siguiente URL. en su navegador web"
+    "Your email address is unverified.": "Su dirección de correo electrónico no está verificada."
 }
