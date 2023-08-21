@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Salario;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class VacanteController extends Controller
@@ -17,9 +19,9 @@ class VacanteController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        return view('vacantes.create');
+    public function create(): View {
+        $salarios = Salario::all();
+        return view('vacantes.create', compact('salarios'));
     }
 
     /**

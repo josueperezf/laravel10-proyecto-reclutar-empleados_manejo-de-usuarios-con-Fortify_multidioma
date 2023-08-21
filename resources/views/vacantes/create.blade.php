@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
                     <div class="md:flex md:justify-center p-5">
-                        <livewire:crear-vacante/>
+                        <livewire:crear-vacante :salarios="$salarios" />
                     </div>
 
                 </div>
