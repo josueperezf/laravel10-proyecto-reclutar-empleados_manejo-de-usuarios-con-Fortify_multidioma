@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Salario;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
@@ -20,8 +19,8 @@ class VacanteController extends Controller
      * Show the form for creating a new resource.
      */
     public function create(): View {
-        $salarios = Salario::all();
-        return view('vacantes.create', compact('salarios'));
+        // la vista vacantes.create llama a un componente 'CrearVacante' que arma el formulario, es ese componente el que le pasa la data para listar categorias y demas
+        return view('vacantes.create');
     }
 
     /**

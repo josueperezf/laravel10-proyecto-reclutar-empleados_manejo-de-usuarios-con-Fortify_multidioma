@@ -24,7 +24,10 @@
     <div class="mt-2">
         <x-input-label for="categoria" :value="__('Category')" />
         <x-select-input id="categoria" name='categoria' :value="old('categoria')" >
-            <option value="">SELECCIONE Categoria</option>
+            <option value="">SELECCIONE CATEGORIA</option>
+            @foreach ($categorias as $categoria)
+                <option value="{{ $categoria->id }}">{{ $categoria->categoria }}</option>
+            @endforeach
         </x-select-input>
         <x-input-error :messages="$errors->get('categoria')" class="mt-2" />
     </div>
