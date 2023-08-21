@@ -52,7 +52,7 @@
         </div>
 
         <div class="flex justify-between my-5">
-            <x-link :href="route('register')" >
+            <x-link :href="route('login')" >
                 {{ __('Log in') }}
             </x-link>
 

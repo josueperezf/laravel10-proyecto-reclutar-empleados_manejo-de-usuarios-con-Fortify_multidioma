@@ -13,10 +13,20 @@ class ConstBase
      * clase padre.
      * @return array
      */
-    public static function obtenerConstantes()
-    {
+    public static function obtenerConstantes(): array {
         $clase = get_called_class();
         $instancia = new $clase;
         return (new ReflectionClass($instancia))->getConstants();
+    }
+
+    public static function invertirKeyValue() : array {
+        $clase = get_called_class();
+        $instancia = new $clase;
+        $elements = (new ReflectionClass($instancia))->getConstants();
+        $resp = [];
+        foreach ($elements as $key => $value) {
+            $resp[$value] = $key;
+        }
+        return $resp;
     }
 }
