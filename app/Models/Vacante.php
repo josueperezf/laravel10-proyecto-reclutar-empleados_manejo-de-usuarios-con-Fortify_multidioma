@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Vacante extends Model
 {
     use HasFactory;
+
+    protected $casts = [ 'ultimo_dia'=>'date']; // esto es para que laravel sepa que cualquier de estos campos puede que yo quiera manejarlos como fecha en algun momento
+
     protected $fillable = [
         'categoria_id',
         'descripcion',
