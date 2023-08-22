@@ -117,9 +117,31 @@
         </div>
     </div>
 
+    {{--
+        IMPORNTANTE:
+
+        livewire cada vez que se escribe en cualquier input llama al backend para guardar ese contenido en la variable que tiene el mismo nombre del input,
+        por ende, livewire invoca un loading que ellos tienen,
+        este no lo puedo utilizar para deshabilitar el boton submit, o colocar la imagen cargando,
+        ya que se veria raro que con cada letra que escriban en el formulario salga la imagen de cargando,
+        para solucionar en la clase CrearVacante se creó la propiedad 'cargando',
+        y decimos que al presionar el boton submit, ademas de hacer el submit,
+        primero llame a la funcion que cree  llamada 'cargador', esta lo que hace es cambiar el valor iniciar de la variable 'cargando',
+        y decimos que se muestre el svg de cargando solo si hay un 'loading' y si se llamo a la funcion 'cargador'
+    --}}
     <div class="mt-4">
-        <x-primary-button >
-            {{ __('Create vacancy') }}
+        <x-primary-button
+            wire:click="cargador"
+            wire:loading.attr="disabled"
+            wire:target="cargador"
+        >
+            {{ __('Create vacancy') }} &nbsp;
+            <div wire:loading wire:target="cargador"  class="animate-spin h-4 w-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                </svg>
+            </div>
+
         </x-primary-button>
     </div>
 </form>

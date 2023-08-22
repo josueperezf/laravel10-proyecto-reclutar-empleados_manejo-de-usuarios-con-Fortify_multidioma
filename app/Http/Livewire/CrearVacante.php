@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Categoria;
 use App\Models\Salario;
+use App\Models\Vacante;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -20,7 +21,8 @@ class CrearVacante extends Component {
     public $ultimo_dia;
     public $descripcion;
     public $imagen;
-    use WithFileUploads;
+    public $cargando = false;
+    use WithFileUploads; // esto es obligatorio si queremos adjuntar imagenes o lo que sea mediante livewire
 
     protected $rules = [
         'titulo' => 'required|string',
@@ -55,8 +57,43 @@ class CrearVacante extends Component {
 
     // este metodo se llama cada vez ejecutan el submit del formulario en el html
     public function guardarVacante() {
-        // mandamos a llamar la validacion
-        $this->validate();
+        // mandamos a llamar la validacion, si falla no continua ejecutando
+        $datosValidados = $this->validate();
+
+        //almacenamos la imagen,
+        //->store() es un  metodo de livewire para almacenar imagenes
+        // la imagen se guardara en storage/app/public/vacantes
+        $rutaImagenAlmacenada = $this->imagen->store('public/vacantes');
+        $nombreImagen= str_replace('public/vacantes', '', $rutaImagenAlmacenada);
+        // dd($nombreImagen);
+
+        //creamos la vacante
+        Vacante::create([
+            'categoria_id' => $datosValidados['categoria'],
+            'descripcion' => $datosValidados['descripcion'],
+            'empresa' => $datosValidados['empresa'],
+            'imagen' => $nombreImagen,
+            'publicado' => 1,
+            'salario_id' => $datosValidados['salario'],// deberia ser salario_id, pero como en el formulario se coloco de nombre salario y no salario_id, entonces se dejo asi
+            'titulo' => $datosValidados['titulo'],
+            'ultimo_dia' => $datosValidados['ultimo_dia'],
+            'user_id' => auth()->user()->id,
+
+        ]);
+
+        // creamos el mensaje
+        session()->flash('mensaje', 'La vacante se publico con exito');
+        // Redireccionamos
+        return redirect()->route('vacantes.index');
+    }
+
+
+    // este metodo lo cree para que cada vez que haga click en el boton submit se llame, con ello deshabilito el boton mientras se hacen las validaciones, se guarda y demas,
+    // no utilice el loading normal, ya que este se ejecuta cada vez que el usuario escribe cada letra en los input y no se veria bien desahabilitar el boton submit cuando escriben una letra,
+    // asi que lo hice de esta forma y funcionó, este metodo tambien sirve para llamar cosas pesadas y demas
+    public function cargador() {
+        $this->cargando = false;
+        sleep(10);
     }
 
 }
