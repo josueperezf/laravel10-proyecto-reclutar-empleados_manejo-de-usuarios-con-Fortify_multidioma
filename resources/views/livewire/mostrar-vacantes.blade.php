@@ -33,3 +33,9 @@
         <p class="p-3 text-center text-sm text-gray-600" >No hay vacantes</p>
     @endforelse
 </div>
+
+
+{{-- para mostrar la paginacion --}}
+<div class="mt-10">
+    {{ $vacantes->links() }}
+</div>

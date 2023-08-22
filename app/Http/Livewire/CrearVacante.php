@@ -93,7 +93,6 @@ class CrearVacante extends Component {
     // asi que lo hice de esta forma y funcionó, este metodo tambien sirve para llamar cosas pesadas y demas
     public function cargador() {
         $this->cargando = false;
-        sleep(10);
     }
 
 }
