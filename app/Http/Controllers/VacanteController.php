@@ -44,6 +44,7 @@ class VacanteController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Vacante $vacante) {
+        $this->authorize('update', $vacante); // se ejecuta el metodo update del policy VacantePolicy, no hay que decirle el nombre, ya que con el $this, sabe a que modelo pertenece
         return view('vacantes.edit', compact('vacante'));
     }
 
