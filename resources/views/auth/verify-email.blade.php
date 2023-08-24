@@ -2,6 +2,7 @@
     <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
         {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
     </div>
+    <a href="http://127.0.0.1:8025/" target="_blank" class="text-blue-500 cursor-pointer"> ver el correo que me llego para aceptarlo</a>
 
     @if (session('status') == 'verification-link-sent')
         <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">

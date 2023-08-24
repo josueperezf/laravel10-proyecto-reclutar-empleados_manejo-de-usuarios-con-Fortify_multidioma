@@ -173,3 +173,16 @@ recordemos que si no tenemos sail y estamos utilizando xampp, entonces no coloca
 
 
 3. ```composer require livewire/livewire``` sirve para manejar ajax mas facil desde laravel, documentacion oficial <https://laravel-livewire.com/docs/2.x/installation>. despues de intalar esta herramienta, si corremos el comando php artisan, veremos que aparecieron mas comandos que podemos utilizar, por ejemplo el que utilizaremos para este ejemplo que es para crear vacante, para ello en la terminal ejecutamos ```sail php artisan make:livewire CrearVacante```. esto crea dos archivos, ``` app/Http/Livewire/CrearVacante.php``` y la vista ```resources/views/livewire/crear-vacante.blade.php```. para poder utilizarlo, podemos ir a la vista donde lo queremos implementar, y alli colocar algo como ```<livewire:crear-vacante/>```, ya con eso mostramos en una pantalla todo el html que coloquemos en la vista ```crear-vacante.blade.php```
+   
+    datos importante de livewire:
+   1. si queremos que un boton html se comunique con un metodo php, el boton debe tener algo como lo siguiente ```<button wire:click="$emit('prueba', {{ $vacante->id }})">mi boton</button>```. ademas debemos agregar en la clase php asociada al livewire lo siguiente ```protected $listeners = ['prueba', 'eliminarVacante'];``` en los corchetes va el nombre del metodo que recibira la peticion desde el boton, claro, ademas que debemos de crear la funcion como tal en la clase, en la clase ```MostrarVacantes.php``` tenemos un ejemplo de como funciona
+   2. si queremos que desde un javascript se llame a una funcion php. para ello debemos tener un boton que llame a ese metodo javascript, algo como: ```<button wire:click="$emit('confirmarElimacionDeVacante', {{ $vacante->id }})"> mi boton que llama a javascript, y javascript llama a un metodo php<button/>```. el codigo javascript debe ser algo como:
+   ```
+   Livewire.on('confirmarElimacionDeVacante', (id) => {
+     alert(id);
+     // la siguiente linea llama el metodo 'eliminarVacante' de la clase php ```MostrarVacantes.php```
+     Livewire.emit('eliminarVacante', id);
+    });
+   ```
+   
+4. ```<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>``` sirve para instalar sweetalert2 mediante cdn, debemos abrir el archivo que tenemos de plantilla, para este caso se llama ```app.blade.php``` y alli agregar una etiqueta que nos sirva para agregar javascript desde otras plantillas, algo como los 'yields', pero para javascript se debe llamar ```stack``` y lo debemos colocar debajo de la etiqueta de la instalacion de tailwind si la tenemos ```@livewireScripts```, lo que debemos colocar es: ```@stack('scripts')```. despues de hacer esto, en la vista donde vayamos a manejar sweetalert2, para este ejemplo sera en ```mostrar-vacantes.blade.php``` debemos agregar algo como esto para importar la libreria mediante cdn y nuestra logica, quedando algo como:

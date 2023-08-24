@@ -26,7 +26,7 @@ class EditarVacante extends Component {
     protected $rules = [
         'titulo' => 'required|string',
         'salario' => 'required|numeric|min:1',
-        'categoria' => 'required|numeric|min:1',
+        'categoria' => 'exists:App\Models\Categoria,id',
         'empresa' => 'required|string',
         'ultimo_dia' => 'required',
         'descripcion' => 'required',
