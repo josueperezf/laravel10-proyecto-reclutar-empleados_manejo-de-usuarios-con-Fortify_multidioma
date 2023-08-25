@@ -41,4 +41,16 @@
             <p>{{ $vacante->descripcion }}</p>
         </div>
     </div>
+
+    {{-- para que se postulen las personas no logueadas, mejor dicho para que se registren --}}
+    @guest
+        <div class="mt-5 bg-gray-50 border border-dashed p-5 text-center">
+            <p>
+                {{ __('Do you want to apply?') }}
+                <a class="font-bold text-indigo-600" href="{{ route('register') }}" >
+                    {{ __('Get an account apply to this and other vacancies') }}
+                </a>
+            </p>
+        </div>
+    @endguest
 </div>

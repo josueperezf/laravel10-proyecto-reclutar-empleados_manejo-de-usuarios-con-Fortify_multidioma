@@ -13,8 +13,9 @@ class VacanteController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index() {
+        // la sioguiente liena es para indicar que solamente tendra permiso los usuarios de rol 2, los reclutadores de ver el listado de vacantes http://localhost/dashboard
+        $this->authorize('viewAny', Vacante::class); // este metodo ya se crea cuando generamos el policy
         return view('vacantes.index');
     }
 

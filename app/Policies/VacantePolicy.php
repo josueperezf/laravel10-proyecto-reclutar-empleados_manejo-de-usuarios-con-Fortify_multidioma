@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Http\Constantes\RolConst;
 use App\Models\User;
 use App\Models\Vacante;
 use Illuminate\Auth\Access\Response;
@@ -9,11 +10,11 @@ use Illuminate\Auth\Access\Response;
 class VacantePolicy
 {
     /**
-     * Determine whether the user can view any models.
+     * Determinar si el usuario puede ver algún modelo.
      */
-    public function viewAny(User $user)
-    {
-        //
+    public function viewAny(User $user) {
+        // si es reclutador si puede ver el panel de mis vacantes http://localhost/dashboard .este metodo lo aplicamos en el controlador 'VacanteController', metodo index
+        return $user->rol == RolConst::RECLUTADOR;
     }
 
     /**
@@ -25,7 +26,7 @@ class VacantePolicy
     }
 
     /**
-     * Determine whether the user can create models.
+     * Determinar si la usuario puede crear modelos.
      */
     public function create(User $user)
     {
