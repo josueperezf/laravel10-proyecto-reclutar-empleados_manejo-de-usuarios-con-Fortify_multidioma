@@ -5,7 +5,7 @@
             <div class="p-6 bg-white border-b border-gray-200 md:flex md:justify-between md:items-center">
                 {{-- leading-10 es para aumentar el interlineado --}}
                 <div class="space-y-3">
-                    <a class="text-xl font-bold ">
+                    <a href="{{ route('vacantes.show', ['vacante'=>$vacante]) }}" class="text-xl font-bold ">
                         {{ $vacante->titulo }}
                     </a>
                     <p class="text-sm text-gray-600 font-bold" >{{ $vacante->empresa }}</p>
