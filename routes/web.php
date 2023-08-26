@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VacanteController;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,8 @@ Route::get('/dashboard', [VacanteController::class, 'index'])->middleware(['auth
 Route::get('/vacantes/create', [VacanteController::class, 'create'])->middleware(['auth', 'verified'])->name('vacantes.create');
 Route::get('/vacantes/{vacante}/edit', [VacanteController::class, 'edit'])->middleware(['auth', 'verified'])->name('vacantes.edit');
 Route::get('/vacantes/{vacante}', [VacanteController::class, 'show'])->name('vacantes.show'); // ruta publica
+// la siguiente ruta no se le indica el metodo del controlador, ya que es un controlador del tipo __invoke, que es que tendra un solo metodo y se llamara por default
+Route::get('/notificaciones/', NotificacionController::class)->middleware(['auth', 'verified'])->name('notificaciones');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

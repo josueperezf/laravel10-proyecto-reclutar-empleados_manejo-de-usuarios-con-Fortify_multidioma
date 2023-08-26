@@ -39,8 +39,9 @@ class PostularVacante extends Component {
         ]);
 
 
-        // crear una notificacion y enviar un email. reclutador es el usuario que creo la vacante
+        // crear una notificacion y enviar un email. reclutador es el usuario que creo la vacante. se llama reclutador solo para que se entediera mejor a nivel semantico, pero deberia ser user, solo que en modelo se coloco 'reclutador'
         // ->notify no lo podemos llamar desde cualquier modelo del sistema, es solo para indicar que llamaremos a una NOTIFICACION
+        // como reclutador es realmente user, entonces en la tabla notifications, en el campo 'notificable_type' quedara quie la notificacion fue invocada por el modelo 'App\Models\User'
         $this->vacante->reclutador->notify(new NuevoCandidatoAlEmpleo($this->vacante->id, $this->vacante->titulo, auth()->user()->id));
 
         // mostrar un mensaje session, recordemos que el __() es para que traduzca este texto, todo eso lo coloque yo en el archivo es.json, las traducciones las hice de español a ingles en google

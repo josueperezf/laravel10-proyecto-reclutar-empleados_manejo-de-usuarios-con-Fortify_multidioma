@@ -144,9 +144,20 @@ public function toMail(object $notifiable): MailMessage {
 }
 ```
 
-4. Importante: para llamar la notificacion se hace desde un modelo, puede ser el que sea, user, candidato, vacante, el que sea, todos los metodos de laravel tienen acceso al metodo Notify que es el encargado de llamar las notificaciones, solo bastaria indicar en parentesis cual es la notificacion que queremos llamar. ejemplo: ```$this->vacante->reclutador->notify(new NuevoCandidatoAlEmpleo($this->vacante->id, $this->vacante->titulo, auth()->user()->id));``` toda esta seccion ```$this->vacante->reclutador->``` lo que sirve es para indicar que modelo de programacion fue el que llamo a la notificacion nada mas, creo que se pudo haber hecho ```User::notify()``` y el resultado era el mismo
+4. Importante: para llamar a una notificacion se realizar desde el modelo de usuario, especificamente del usuario al que le vamos a enviar la notificacion
+
+    ```
+        $user = User:find(1);
+        $user->notify(new laCLASE NOTIFICACION);
+        // la notificacion fue enviada al usuarioa id 1
+    ```
+para nuestro ejemplo que tenemos en el proyecto de empleos de laravel 10, nos encontramos con la linea: ```$this->vacante->reclutador->notify(new NuevoCandidatoAlEmpleo($this->vacante->id, $this->vacante->titulo, auth()->user()->id));``` toda esta seccion ```$this->vacante->reclutador->``` lo que sirve es para indicar que modelo de programacion fue el que llamo a la notificacion
 
 lo que va dentro de los parentesis es solo lo queremos que reciba el controlador de nuestra clase de notificacion, ya esto depende de los parametros que necesitemos
+
+si queremos ver las notificaciones del usuario logueado seria: ```$notificaciones = auth()->user()->unreadNotifications;```, ```unreadNotifications``` ya es algo propio de laravel, no creado por nosotros. tambien podemos marcarlas como leidas y demas
+
+PARA MAS INFORMACION, COMO LEER LAS NOTIFICAIONES, MARCARLAS COMO LEIDAS Y DEMAS, <https://laravel.com/docs/10.x/notifications>
 
 
 ## configuracion de docker si no la tenemos

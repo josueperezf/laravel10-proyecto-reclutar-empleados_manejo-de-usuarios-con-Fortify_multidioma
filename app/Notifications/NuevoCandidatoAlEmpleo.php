@@ -8,6 +8,14 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
+// IMPORTANTE LAS NOTIFICAIONES SE RECOMIENDAN POR NO DECIR QUE ES OBLIGATORIO LLAMARLAS DESDE EL MODELO DEL USUARIO PARA QUE QUEDE REGISTRADO A QUE USUARIO SE ENVIO LA NOTIFICACION
+// EJEMPLO
+/**
+ * $user = User:find(1);
+ * $user->notify(new laCLASE NOTIFICACION);
+ * de esta forma la notificacion fue enviada al usuarioa id 1
+ *
+ */
 class NuevoCandidatoAlEmpleo extends Notification
 {
     use Queueable;
