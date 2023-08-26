@@ -1,6 +1,8 @@
 {
     "A new verification link has been sent to the email address you provided during registration.": "Se ha enviado un nuevo enlace de verificación a la dirección de correo electrónico que proporcionó durante el registro.",
     "Already registered?": "¿Ya tienes una cuenta?",
+    "Apply for this vacancy": "Postularse a esta vacante",
+    "Apply": "Postularme",
     "Category": "Categoria",
     "Company": "Empresa",
     "Confirm Password": "Confirmar contraseña",
@@ -54,5 +56,6 @@
     "Vacant title": "Título vacante",
     "Verify Email Address": "Confirme su dirección de correo",
     "Verify now": "Confirmar Cuenta",
-    "Your email address is unverified.": "Su dirección de correo electrónico no está verificada."
+    "Your email address is unverified.": "Su dirección de correo electrónico no está verificada.",
+    "Your information was sent successfully": "Se envió con exito tu información"
 }

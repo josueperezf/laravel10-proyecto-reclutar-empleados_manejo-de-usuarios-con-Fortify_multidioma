@@ -53,4 +53,36 @@
             </p>
         </div>
     @endguest
+
+    {{--
+        los '@can' son como un 'if' con su else y demas de programacion. @cannot es como si negaramos el 'if'
+        con la diferencia que lo que va en parentesis:
+        1. primero: es el nombre del método al que vamos a invocar.
+        2. segundo: es la clase policy donde esta ese metodo, para este ejemplo es VacantePolicy
+        tod0 esto es mas o menos similar a lo que colocamos en el controlador de VacanteController.php donde decimos ejemplo
+        $this->authorize('create', Vacante::class).
+        en las vistas las clases se deben colocar con la ruta completa, como se ve acontinuacion
+    --}}
+    {{-- @can('create', App\models\Vacante::class)
+        <p>Este es un reclutador</p>
+    @else
+        <p>Este es un Programador</p>
+        <livewire:postular-vacante/>
+    @endcan --}}
+
+    {{-- como necesitamos mostrar el usuario solo para los programadores entonces utilizamos el  --}}
+
+    {{--
+        pense en colocar directamente un IF,
+        pero buscandole la logica, noto que si cambio la regla de quienes pueden crear,
+        al tenerla centralizado en el policy entonces no tendria que ir lugar a lugar actualizando el if.
+        solo en este caso pregunto que usuario no tiene permido de crear un modelo, eso es lo que quiere decir la siguiente linea
+    --}}
+
+
+    @cannot('create', App\models\Vacante::class)
+        {{-- los dos puntos es porque el contenido viene de una variable php :vacante="vacante" --}}
+        <livewire:postular-vacante :vacante="$vacante" />
+    @endcannot
+
 </div>
