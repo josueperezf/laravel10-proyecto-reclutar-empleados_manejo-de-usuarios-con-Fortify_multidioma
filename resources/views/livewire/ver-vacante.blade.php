@@ -82,7 +82,9 @@
 
     @cannot('create', App\models\Vacante::class)
         {{-- los dos puntos es porque el contenido viene de una variable php :vacante="vacante" --}}
-        <livewire:postular-vacante :vacante="$vacante" />
+        @auth
+            <livewire:postular-vacante :vacante="$vacante" />
+        @endauth
     @endcannot
 
 </div>

@@ -96,6 +96,57 @@ esto se hace ejecutando en la terminal el comando: ```sail php artisan view:clea
 ya con esto seria suficiente para poder utilizar el componente en cuantos lugares queramos
 
 
+## NOFITICACIONES LARAVEL mediante EMAIL
+
+Si queremos notificar algo al usuario, bien sea por mensaje de texto al celular, o por email, la forma mas profesional de hacerlo es mediante las notificaciones. las notificaciones te permiten saber cuando un evento ocurre en la aplicacion, ejemplo cuando ocurrio una nueva venta, tenemos un nuevo suscriptor etc. las notificaciones las podemos mostrar de varias formas, ejemplo
+1. en pagina web con un mensaje en un globo que si le das click te lleva a la informacion.
+2. por mensaje de email
+3. mediante un mensaje de texto al celular. esta opcion utiliza una api que llega a ser de pago despues de cierta cantidad de mensajes enviados
+
+para este ejemplo enviara notificaciones cuando un usuario se postular para la vacante de un empleo.
+### PASOS PARA CREAR UNA NOTIFICACION 
+
+1. en la terminal ejecutamos el comando ```sail php artisan make:notification NuevoCandidatoAlEmpleo```
+
+!!IMPORTANTE!!
+
+Las notificaciones al generarlas nos crea un archivo que tiene algunos metodos, estos son:
+* via: sirve para indicar como queremos notificar al usuario, ejemplo mail, database 'para almacenar valores en la tabla notifications' u otro
+* toMail: sirve para configurar los parametros que queremos enviar mediante correo electronico
+* toDatabase: en este metodo se retorna un array, este array se va a almacenar en la base de datos, en la tabla notifications, en el campo data, esto como un json. asi funciona la configuracion por default
+* 
+
+2. Para almacenar en la base de datos la notificacion 'opcional': sirve para tener un registro de las notificaciones enviadas, ademas podemos hacer para por ejemplo, marcar cuales de las notificaciones ya fueron vistas por el usuario. 
+
+si en el archivo generado por php artisan, no tiene el metodo 'toDatabase' lo creamos, esto solo si vamos a guardar en la base de datos, de lo contrario no es necesario. el metodo tendra algo como:
+```
+    // almacena las notificaciones en la base de datos
+    public function toDatabase(object $notifiable) {
+        // lo que coloquemos en este arreglo internamente laravel lo va a convertir en json,
+        // y lo va almacenar en la tabla notifications en la columna 'data'
+        return [
+
+        ]
+    }
+```
+
+como para este ejemplo vamos a guardar en la base de datos las notificaciones, entonces debemos crear el modelo y la migracion de la tabla donde guardaremos eso: ```sail php artisan notifications:table``` el anterior comando crea las migracion de la tabla que requiere para las notificaciones. ahora debemos correr la migracion ```sail php artisan migrate```
+
+3.  para enviar por email: line es linea de texto que queremos agregar, action es para los botones que le queremos agregar al email, igual se puede hacer un html para todo esto
+```
+public function toMail(object $notifiable): MailMessage {
+    $url = url('/notificaciones/'.$this->vacante_id);
+    return (new MailMessage)
+                ->line('Has recibido un nuevo candidato para tu vacante laboral.')
+                ->line('La vacante es: '.$this->titulo_vacante)
+                ->action('Ver notificaciones', $url) //es por si queremos colocar un enlace o algo asi
+                ->line('Gracias por utilizar nuestra aplicacion!');
+}
+```
+
+4. Importante: para llamar la notificacion se hace desde un modelo, puede ser el que sea, user, candidato, vacante, el que sea, todos los metodos de laravel tienen acceso al metodo Notify que es el encargado de llamar las notificaciones, solo bastaria indicar en parentesis cual es la notificacion que queremos llamar. ejemplo: ```$this->vacante->reclutador->notify(new NuevoCandidatoAlEmpleo($this->vacante->id, $this->vacante->titulo, auth()->user()->id));``` toda esta seccion ```$this->vacante->reclutador->``` lo que sirve es para indicar que modelo de programacion fue el que llamo a la notificacion nada mas, creo que se pudo haber hecho ```User::notify()``` y el resultado era el mismo
+
+lo que va dentro de los parentesis es solo lo queremos que reciba el controlador de nuestra clase de notificacion, ya esto depende de los parametros que necesitemos
 
 
 ## configuracion de docker si no la tenemos

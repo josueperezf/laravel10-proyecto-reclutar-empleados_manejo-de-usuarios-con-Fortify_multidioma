@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Http\Constantes\RutasStorageUploadsConst;
 use App\Models\Candidato;
 use App\Models\Vacante;
+use App\Notifications\NuevoCandidatoAlEmpleo;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -38,7 +39,9 @@ class PostularVacante extends Component {
         ]);
 
 
-        // crear una notificacion y enviar un email
+        // crear una notificacion y enviar un email. reclutador es el usuario que creo la vacante
+        // ->notify no lo podemos llamar desde cualquier modelo del sistema, es solo para indicar que llamaremos a una NOTIFICACION
+        $this->vacante->reclutador->notify(new NuevoCandidatoAlEmpleo($this->vacante->id, $this->vacante->titulo, auth()->user()->id));
 
         // mostrar un mensaje session, recordemos que el __() es para que traduzca este texto, todo eso lo coloque yo en el archivo es.json, las traducciones las hice de español a ingles en google
         session()->flash('mensaje', __('Your information was sent successfully'));
