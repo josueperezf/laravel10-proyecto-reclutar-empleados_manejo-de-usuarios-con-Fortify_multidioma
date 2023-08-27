@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\RolUsuario;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -48,7 +49,7 @@ class Kernel extends HttpKernel
     /**
      * The application's middleware aliases.
      *
-     * Aliases may be used instead of class names to conveniently assign middleware to routes and groups.
+     * Se pueden utilizar alias en lugar de nombres de clases para asignar convenientemente middleware a rutas y grupos.
      *
      * @var array<string, class-string|string>
      */
@@ -64,5 +65,6 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'rol.reclutador' => RolUsuario::class, // el punto es solo para separar las palabras no se estila a colocar - _ o algo asi RolReclutador no es un nombre valido
     ];
 }

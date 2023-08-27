@@ -159,6 +159,50 @@ si queremos ver las notificaciones del usuario logueado seria: ```$notificacione
 
 PARA MAS INFORMACION, COMO LEER LAS NOTIFICAIONES, MARCARLAS COMO LEIDAS Y DEMAS, <https://laravel.com/docs/10.x/notifications>
 
+## Midleware en laravel
+
+El middleware proporciona un mecanismo conveniente para inspeccionar y filtrar las solicitudes HTTP que ingresan a su aplicación. Por ejemplo, Laravel incluye un middleware que verifica que el usuario de su aplicación esté autenticado. Si el usuario no está autenticado, el middleware lo redireccionará a la pantalla de inicio de sesión de su aplicación. Sin embargo, si el usuario está autenticado, el middleware permitirá que la solicitud avance en la aplicación.
+
+los middleware determina si tiene acceso a una ruta o no, si no tiene redirecciona a otra o informa al frontend. todo esto es control de rutas va asociado a los router, algo como los guardianes en angular
+
+### pasos para crear un Midleware en laravel
+
+1. para crear un middleware: debemos abrir la terminal y ejecutar ```sail php artisan ma.git (fetch)ake:middleware RolUsuario```, esto creara un archivo en la ruta ```app/Http/Middleware/RolUsuario.php```
+   
+2. registrar el middleware: para ello debemos abrir el archivo ```Kernel.php```, buscar el array ```$middlewareAliases``` y alli lo agregamos, le damos el nombre que queramos, ejemplo ```'rol.reclutador' => RolUsuario::class```. reclutador es porque va a ser para que permita solo a los usuarios de rol = 2, y este es reclutador
+3. uso: para utilizarlo, debemos ir al router del proyecto y en las rutas agregar ```->middleware(['rol.reclutador'])```
+4. logica de negocio: ya esto depende de lo que queramos hacer con el middleware, el siguiente bloque es un ejemplo funcional
+
+
+```
+<?php
+
+namespace App\Http\Middleware;
+
+use App\Http\Constantes\RolConst;
+use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+class RolUsuario
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function handle(Request $request, Closure $next): Response
+    {
+        // si el usuario no es de rol o perfil RECLUTADOR  '2', REDIRECCIONAMOS A ruta raiz
+
+        if (auth()->user()->rol != RolConst::RECLUTADOR) {
+            return redirect()->route('home'); // en el web.php debemos tener una ruta con un name igual a 'home'
+        }
+        return $next($request);
+    }
+}
+
+```
 
 ## configuracion de docker si no la tenemos
 
