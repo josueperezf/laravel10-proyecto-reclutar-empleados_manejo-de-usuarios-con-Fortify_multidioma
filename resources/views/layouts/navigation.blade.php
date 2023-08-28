@@ -12,14 +12,16 @@
 
                 @auth
                     <!-- Navigation Links -->
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('vacantes.index')" :active="request()->routeIs('vacantes.index')">
-                            {{ __('My vacancies') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('vacantes.create')" :active="request()->routeIs('vacantes.create')">
-                            {{ __('Create vacancy') }}
-                        </x-nav-link>
-                    </div>
+                    @can('create', App\models\Vacante::class)
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('vacantes.index')" :active="request()->routeIs('vacantes.index')">
+                                {{ __('My vacancies') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('vacantes.create')" :active="request()->routeIs('vacantes.create')">
+                                {{ __('Create vacancy') }}
+                            </x-nav-link>
+                        </div>
+                    @endcan
                 @endauth
 
             </div>
@@ -29,11 +31,16 @@
                 @auth
                     {{--  para este ejemplo solo los reclutadores tendran notificaciones --}}
                     {{-- como voy a utilizar una clase php en blade, debo colocarla con la ruta completa \App\Http\Constantes\RolConst::RECLUTADOR --}}
-                    @if(auth()->user()->rol == \App\Http\Constantes\RolConst::RECLUTADOR)
+                    {{-- la siguiente linea funciona pero el profesor esta atando todo los perfiles a los policy, por eso utiliza los @can y @cannot en lugar de los if--}}
+                    {{-- @if(auth()->user()->rol == \App\Http\Constantes\RolConst::RECLUTADOR) --}}
+                    {{-- si puede crear una vacante entonces que la cree, segun el VacantePolicy quien puede utilizar el create es solamente el perfil reclutador, asi que la siguiente linea y la anterior son validas, pero la siguiente, la no comentada es mas profesional --}}
+                    @can('create', App\models\Vacante::class)
                         <a class="mr-2 w-7 h-7 dark:bg-indigo-600 hover:bg-indigo-800 rounded-full flex flex-col justify-center items-center text-sm font-extrabold text-white"  href="{{ route('notificaciones') }}">
                             {{ auth()->user()->unreadNotifications->count() }}
                         </a><span class="text-sm dark:text-gray-400" >notificaciones</span>
-                    @endif
+                    {{-- @endif --}}
+                    @endcan
+
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">

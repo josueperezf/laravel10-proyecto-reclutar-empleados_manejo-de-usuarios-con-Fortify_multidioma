@@ -10,30 +10,36 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h1 class="text-2xl font-bold text-center my-10" >{{ __('My notifications') }}</h1>
+                    <div class="divide-y divide-gray-200" >
+                        @forelse ( $notificaciones as  $notificacion)
+                            {{-- creo que el flex lo que hace es mover las cosas para un lado y otro, en cambio en grid divide la pantalla en x cantidad de partes --}}
+                            {{-- items-center es para centrarlo verticalmente --}}
+                            <div class="p-5  lg:flex lg:justify-between lg:items-center">
+                                <div>
+                                    <p>
+                                        Tienes un nuevo candidato en la vacante:
+                                        {{--  la data que ponemos como array es la que viene desde el campo data de la tabla notifications, asi lo maneja lravel por default --}}
+                                        <span class="font-bold">{{ $notificacion->data['titulo_vacante'] }}</span>
+                                    </p>
 
-                    @forelse ( $notificaciones as  $notificacion)
-                        {{-- creo que el flex lo que hace es mover las cosas para un lado y otro, en cambio en grid divide la pantalla en x cantidad de partes --}}
-                        {{-- items-center es para centrarlo verticalmente --}}
-                        <div class="p-5 border border-gray-200 lg:flex lg:justify-between lg:items-center">
-                            <div>
-                                <p>
-                                    Tienes un nuevo candidato en la vacante:
-                                    <span class="font-bold">{{ $notificacion->data['titulo_vacante'] }}</span>
-                                </p>
+                                    <p>
+                                        <span class="font-bold">{{ $notificacion->created_at->diffForHumans() }}</span>
+                                    </p>
+                                </div>
 
-                                <p>
-                                    <span class="font-bold">{{ $notificacion->created_at->diffForHumans() }}</span>
-                                </p>
+                                <div class="mt-5 lg:mt-0">
+                                    <a
+                                        class="dark:bg-indigo-500 p-3 text-sm uppercase font-bold text-white rounded-lg"
+                                        href="{{ route('candidatos.index', ['vacante'=> $notificacion->data['vacante_id'] ]) }}"
+                                    >
+                                        Ver candidato
+                                    </a>
+                                </div>
                             </div>
-
-                            <div class="mt-5 lg:mt-0">
-                                <a class="dark:bg-indigo-500 p-3 text-sm uppercase font-bold text-white rounded-lg" >Ver candidato</a>
-                            </div>
-                        </div>
-                    @empty
-                        <p class="text-center text-gray-600" >No hay notificaciones nuevas</p>
-                    @endforelse
-
+                        @empty
+                            <p class="text-center text-gray-600" >No hay notificaciones nuevas</p>
+                        @endforelse
+                    </div>
                 </div>
             </div>
         </div>
