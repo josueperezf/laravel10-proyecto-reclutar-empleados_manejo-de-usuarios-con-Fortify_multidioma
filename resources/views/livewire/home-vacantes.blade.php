@@ -1,6 +1,8 @@
 <div>
     {{-- renderizamos el componente para el buscador --}}
+    {{-- importante los datos filtrados por el siguiente componente, deben ser pados al componente padre --}}
     <livewire:filtrar-vacantes/>
+
     <div class="py-12">
         {{-- mx-auto para que este centrado --}}
         <div class="max-w-7xl mx-auto">
